@@ -1,10 +1,10 @@
 const express = require('express')
-
+const PostModel = require('../models/posts')
 const router = express.Router()
 
 
 
-router.get('/posts',(req, res) => {
+router.get('/',(req, res) => {
     PostModel.find({}, 
         (err, posts) => {
           if (!err) return res.json(posts)
@@ -12,7 +12,7 @@ router.get('/posts',(req, res) => {
         })
 })
 
-router.get('/posts/:id',(req, res) => {
+router.get('/:id',(req, res) => {
     PostModel.find({_id: req.params.id }, 
         (err, post) => {
           if (!err) return res.json(post)
@@ -20,14 +20,14 @@ router.get('/posts/:id',(req, res) => {
         })
 })
 
-router.post('/posts',(req, res) => {
+router.post('/',(req, res) => {
     PostModel.create(req.body, 
         (err, post) => {
           if (!err) return res.json(post);
           return res.send(err)
         })
 })
-router.patch('/posts/:id',(req, res) => {
+router.patch('/:id',(req, res) => {
     PostModel.update({ _id: req.params.id}, { $set: req.body }, 
         (err, post) => {
           if (!err) return res.json(post)
@@ -35,7 +35,7 @@ router.patch('/posts/:id',(req, res) => {
         })
 })
 
-router.delete('/posts/:id',(req, res) => {
+router.delete('/:id',(req, res) => {
     PostModel.deleteOne({ _id: req.params.id}, 
         (err, post) => {
         if (!err) return res.json(post)
